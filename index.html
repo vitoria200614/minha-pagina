@@ -5,36 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-estar</title>
     <style>
-        h1{
-           color:blue;
-           font-family: Georgia, 'Times New Roman', Times, serif;
-           text-align:center;
+        h1 {
+            color: blue;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-align: center;
         }
-        h2{
-            color:rgb(11, 11, 39);
-            background-color:rgb(14, 145, 197);
-            text-align:center;
-
+        h2 {
+            color: rgb(11, 11, 39);
+            background-color: rgb(14, 145, 197);
+            text-align: center;
         }
-        h5{
-            text-align:center;
+        h5 {
+            text-align: center;
         }
-        img{
-           display:block;
-           margin-left:auto;
-           margin-right:auto;
-           max-width:50%;
-           max-height:100%
-     
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 50%;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f7f7f7;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px;
+            background-color: #0e91c5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resultado {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
-        
 </head>
 <body>
+
     <h1>Minha pasta de saúde</h1>
     <h2>Evelly</h2>
-    <h5>Bem-estar</h5></h>
-<p><b>treinos,bem-estar, alimentação, meditação<b></b></p>
-<img src="bem-estar.webp">
+    <h5>Bem-estar</h5>
+    <p><b>Treinos, bem-estar, alimentação, meditação</b></p>
+    <img src="bem-estar.webp" alt="Imagem de bem-estar">
+
+    <form id="formCalorias">
+        <label>Idade:</label>
+        <input type="number" id="idade" required>
+
+        <label>Peso (kg):</label>
+        <input type="number" id="peso" step="0.1" required>
+
+        <label>Altura (cm):</label>
+        <input type="number" id="altura" required>
+
+        <label>Gênero:</label>
+        <select id="genero">
+            <option value="feminino">Feminino</option>
+            <option value="masculino">Masculino</option>
+        </select>
+
+        <label>Nível de atividade física:</label>
+        <select id="atividade">
+            <option value="1.2">Sedentário</option>
+            <option value="1.375">Levemente ativo</option>
+            <option value="1.55">Moderadamente ativo</option>
+            <option value="1.725">Muito ativo</option>
+            <option value="1.9">Extremamente ativo</option>
+        </select>
+
+        <button type="button" onclick="calcularCalorias()">Calcular Calorias Diárias</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularCalorias() {
+            const idade = parseInt(document.getElementById('idade').value);
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseInt(document.getElementById('altura').value);
+            const genero = document.getElementById('genero').value;
+            const atividade = parseFloat(document.getElementById('atividade').value);
+
+            let tmb;
+
+            if (genero === 'feminino') {
+                tmb = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * idade);
+            } else {
+                tmb = 66 + (13.7 * peso) + (5 * altura) - (6.8 * idade);
+            }
+
+            const calorias = tmb * atividade;
+
+            document.getElementById('resultado').innerText = `Sua necessidade calórica diária estimada é de ${calorias.toFixed(0)} calorias.`;
+        }
+    </script>
+
 </body>
 </html>
